@@ -1,3 +1,4 @@
+import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
@@ -5,6 +6,8 @@ import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
+
+import java.util.List;
 
 /**
  * Created by ikeo on 15/01/14.
@@ -28,12 +31,13 @@ public class TestCase2 {
     @Test
     public void selectActivity(){
 
-        MainMenuPage mm;
-        ListActivitiesPage la;
+        P_MainMenuPage mm;
+        P_ListActivitiesPage la;
 
         selenium.get("http://vpc-hy-08r2-03/WDC/login.aspx");
+        selenium.manage().window().maximize();
 
-        LoginPage lp = new LoginPage(selenium);
+        P_LoginPage lp = new P_LoginPage(selenium);
 
         mm = lp.login("WDC", "meandmymonkey");
 
@@ -64,6 +68,25 @@ public class TestCase2 {
         Assert.assertTrue(la.isTemplateAddButtonDisplayed());
         Assert.assertTrue(la.isTemplateDeleteButtonDisplayed());
         Assert.assertTrue(la.isTemplateGenerateButtonDisplayed());
+
+        /*Check if there is a list of activities from selected filter*/
+        int activityList = la.listActivityRowNumber();
+
+        if(activityList > 1){
+
+            List<WebElement> al = la.listActivitySummary();
+
+            P_EditActivityDetailsPage activityEditPage = la.clickActivityEditButton(al);
+
+            activityEditPage.enterComment("Testing");
+
+            activityEditPage.clickSaveBtn();
+
+            Assert.assertEquals(activityEditPage.getComment(),"ElmiTesting");
+
+
+
+        }
 
 
 

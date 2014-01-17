@@ -1,16 +1,20 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Dimension;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.util.List;
+
 /**
  * Created by ikeo on 15/01/14.
  */
-public class ListActivitiesPage {
+public class P_ListActivitiesPage {
     WebDriver selenium;
+    findElements find = new findElements();
 
 
-    public ListActivitiesPage(WebDriver selenium){
+    public P_ListActivitiesPage(WebDriver selenium){
 
         this.selenium = selenium;
     }
@@ -158,6 +162,37 @@ public class ListActivitiesPage {
 
     }
 
+    public int listActivityRowNumber(){
+        String locator = "#pActivityList>div";
+        List<WebElement> pane = find.findElementsByCss(selenium, locator);
+
+        return pane.size();
+
+    }
+
+    public List<WebElement> listActivitySummary(){
+        String locator = "#pActivityList>div";
+        List<WebElement> pane = find.findElementsByCss(selenium, locator);
+
+        return pane;
+
+
+
+    }
+
+    public P_EditActivityDetailsPage clickActivityEditButton(List<WebElement> ListofActivities){
+
+        /*Click on random selected activity edit button */
+        int i = 1 + (int) (Math.random() * ((ListofActivities.size() - 1) + 1));
+
+        WebElement row = ListofActivities.get(i);
+        WebElement  btn = row.findElement(By.cssSelector("input[id^='bEditpdetail_']"));
+        btn.click();
+
+        return new P_EditActivityDetailsPage(selenium);
+
+    }
+
 
 
 
@@ -173,5 +208,10 @@ public class ListActivitiesPage {
     private WebElement object(String locator){
 
         return selenium.findElement(By.id(locator));
+    }
+
+    private WebElement objectElements(String locator){
+
+        return (WebElement) selenium.findElements(By.cssSelector(locator));
     }
 }
