@@ -1,12 +1,17 @@
 import org.openqa.selenium.By;
+import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.remote.DesiredCapabilities;
+import org.openqa.selenium.remote.RemoteWebDriver;
 import org.testng.Assert;
 import org.testng.annotations.AfterTest;
 import org.testng.annotations.BeforeTest;
 import org.testng.annotations.Test;
 
+import java.net.MalformedURLException;
+import java.net.URL;
 import java.util.List;
 
 /**
@@ -18,10 +23,24 @@ public class TestCase2 {
 
     @BeforeTest
 
-    public void setUp(){
+   /* public void setUp(){
         selenium = new FirefoxDriver();
 
+    }*/
+
+    public void setUp() throws MalformedURLException {
+        DesiredCapabilities capacity;
+        capacity = DesiredCapabilities.firefox();
+        capacity.setBrowserName("firefox");
+        capacity.setPlatform(Platform.ANY);
+
+        URL url = new URL("http://vpc-hy-w7-au2:4444/wd/hub");
+
+        selenium = new RemoteWebDriver(url, capacity);
+
     }
+
+
 
     @AfterTest
     public void tearDown(){
