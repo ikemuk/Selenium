@@ -5,6 +5,7 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
 import java.util.List;
+import java.util.Random;
 
 /**
  * Created by ikeo on 15/01/14.
@@ -17,6 +18,22 @@ public class P_ListActivitiesPage {
     public P_ListActivitiesPage(WebDriver selenium){
 
         this.selenium = selenium;
+
+        //Get url of page
+        String url = this.selenium.getCurrentUrl();
+
+        //get page name using string manipulation
+        String[] spliturl = url.split("/");
+        String page = spliturl[spliturl.length-1];
+
+        if(!"activityList.aspx".equalsIgnoreCase(page)){
+            String address = null;
+
+            for(int i=0; i < spliturl.length; i++){
+                address = address + spliturl[i];
+            }
+            selenium.get(address);
+        }
     }
 
     public boolean isListActivitiesDisplayed(){
@@ -183,7 +200,9 @@ public class P_ListActivitiesPage {
     public P_EditActivityDetailsPage clickActivityEditButton(List<WebElement> ListofActivities){
 
         /*Click on random selected activity edit button */
-        int i = 1 + (int) (Math.random() * ((ListofActivities.size() - 1) + 1));
+        //int i = 1 + (int) (Math.random() * ((ListofActivities.size() - 1) + 1));
+
+        int i = getRandomNumberFrom(1,ListofActivities.size() - 1);
 
         WebElement row = ListofActivities.get(i);
         WebElement  btn = row.findElement(By.cssSelector("input[id^='bEditpdetail_']"));
@@ -194,7 +213,13 @@ public class P_ListActivitiesPage {
     }
 
 
+    public static int getRandomNumberFrom(int min, int max) {
+        Random foo = new Random();
+        int randomNumber = foo.nextInt((max + 1) - min) + min;
 
+        return randomNumber;
+
+    }
 
     private Select dropdown(String locator){
 

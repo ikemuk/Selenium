@@ -3,9 +3,12 @@ import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.openqa.selenium.Platform;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
+import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.firefox.FirefoxDriver;
+import org.openqa.selenium.ie.InternetExplorerDriver;
 import org.openqa.selenium.remote.DesiredCapabilities;
 import org.openqa.selenium.remote.RemoteWebDriver;
+import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 
 import org.testng.annotations.AfterTest;
@@ -30,28 +33,14 @@ public class TestCase3 {
 
     @BeforeTest
 
-   /* public void setUp(){
+    public void setUp() throws MalformedURLException {
+        //DesiredCapabilities capabilities = DesiredCapabilities.chrome();
+        //System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\driver\\chromedriver.exe");
         selenium = new FirefoxDriver();
 
-    }*/
-
-    public void setUp(){
-        selenium = new FirefoxDriver();
 
     }
 
-
-    /*public void setUp() throws MalformedURLException {
-        DesiredCapabilities capacity;
-        capacity = DesiredCapabilities.firefox();
-        capacity.setBrowserName("firefox");
-        capacity.setPlatform(Platform.ANY);
-
-        URL url = new URL("http://vpc-hy-w7-au2:4444/wd/hub");
-
-        selenium = new RemoteWebDriver(url, capacity);
-
-    }*/
 
 
 
@@ -65,9 +54,8 @@ public class TestCase3 {
 
         P_MainMenuPage mm;
         P_ListActivitiesPage la;
+        P_EditActivityDetailsPage activityEditPage = null;
         HSSFRichTextString[][] testdata;
-        testdata = new HSSFRichTextString[1][4];
-
         Test_Data data = new Test_Data();
 
         selenium.get("http://vpc-hy-08r2-03/WDC/login.aspx");
@@ -82,15 +70,25 @@ public class TestCase3 {
         /*Check if its the list activities page */
         Assert.assertTrue(la.isListActivitiesDisplayed());
 
-        //Get test data
+        int row = data.rowNumber("Sheet1", "D:\\Selenium\\Test_Data\\Book1.xls");
         testdata = data.readexcelwithPOI("Sheet1", "D:\\Selenium\\Test_Data\\Book1.xls");
 
-
-        for(int r = 1; r < 1; r++){
+        for(int r = 1; r < row; r++){
                 la.selectDept(testdata[r][0].toString());
+
+
+            Thread.sleep(1000);
+
+
+
+
                 la.selectProgramme(testdata[r][1].toString());
+            Thread.sleep(1000);
                 la.selectModule(testdata[r][2].toString());
+            Thread.sleep(1000);
                 la.selectActivityTemplate(testdata[r][3].toString());
+
+            Thread.sleep(1000);
 
                 Assert.assertTrue(la.isDepReportButtonDisplayed());
                 Assert.assertTrue(la.isPOSReportButtonDisplayed());
@@ -109,20 +107,27 @@ public class TestCase3 {
 
                     List<WebElement> al = la.listActivitySummary();
 
-                    P_EditActivityDetailsPage activityEditPage = la.clickActivityEditButton(al);
+                    activityEditPage = la.clickActivityEditButton(al);
 
                     activityEditPage.enterComment("Testing");
 
                     activityEditPage.clickSaveBtn();
 
-                    Assert.assertEquals(activityEditPage.getComment(),"ElmiTesting");
+                    //Assert.assertEquals(activityEditPage.getComment(),"ElmiTesting");
                 }
+
+                la = activityEditPage.clickSaveandCloseBtn();
 
 
         }
 
 
 
+    }
+
+    private void iwait() throws InterruptedException {
+
+        wait(5000);
     }
 
 
