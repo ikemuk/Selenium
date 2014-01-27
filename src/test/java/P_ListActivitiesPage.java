@@ -39,7 +39,7 @@ public class P_ListActivitiesPage {
     public boolean isListActivitiesDisplayed(){
         String locator = "lActivityListTitle";
 
-        WebElement ListActivity = object(locator);
+        WebElement ListActivity = find.findElementById(selenium, locator);
 
         return ListActivity.isDisplayed();
 
@@ -49,7 +49,8 @@ public class P_ListActivitiesPage {
 
         String locator = "dlDepartment";
 
-        Select DepDrpDwn = dropdown(locator);
+        //Select DepDrpDwn = dropdown(locator);
+        Select DepDrpDwn = find.dropdown(selenium,locator);
 
         DepDrpDwn.selectByVisibleText(dep);
 
@@ -60,7 +61,8 @@ public class P_ListActivitiesPage {
 
         String locator = "dlPOS";
 
-        Select DepDrpDwn = dropdown(locator);
+        //Select DepDrpDwn = dropdown(locator);
+        Select DepDrpDwn = find.dropdown(selenium,locator);
 
         DepDrpDwn.selectByVisibleText(dep);
 
@@ -71,7 +73,8 @@ public class P_ListActivitiesPage {
 
         String locator = "dlStatus";
 
-        Select DepDrpDwn = dropdown(locator);
+        //Select DepDrpDwn = dropdown(locator);
+        Select DepDrpDwn = find.dropdown(selenium,locator);
 
         DepDrpDwn.selectByVisibleText(dep);
 
@@ -82,7 +85,8 @@ public class P_ListActivitiesPage {
 
         String locator = "dlModule";
 
-        Select DepDrpDwn = dropdown(locator);
+        //Select DepDrpDwn = dropdown(locator);
+        Select DepDrpDwn = find.dropdown(selenium,locator);
 
         DepDrpDwn.selectByVisibleText(dep);
 
@@ -93,7 +97,8 @@ public class P_ListActivitiesPage {
 
         String locator = "dlTemplate";
 
-        Select DepDrpDwn = dropdown(locator);
+        //Select DepDrpDwn = dropdown(locator);
+        Select DepDrpDwn = find.dropdown(selenium,locator);
 
         DepDrpDwn.selectByVisibleText(dep);
 
@@ -103,7 +108,8 @@ public class P_ListActivitiesPage {
     public boolean isDepReportButtonDisplayed(){
 
         String locator = "bDepartmentReport";
-        WebElement btn = object(locator);
+        //WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -112,7 +118,7 @@ public class P_ListActivitiesPage {
     public boolean isPOSReportButtonDisplayed(){
         String locator = "bPOSReports";
 
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -121,7 +127,7 @@ public class P_ListActivitiesPage {
     public boolean isModuleReportButtonDisplayed(){
         String locator = "bModuleReports";
 
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -130,7 +136,7 @@ public class P_ListActivitiesPage {
     public boolean isPOSEditButtonDisplayed(){
 
         String locator = "bPOSEdit";
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -139,7 +145,7 @@ public class P_ListActivitiesPage {
     public boolean isModuleEditButtonDisplayed(){
 
         String locator = "bModuleEdit";
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -148,7 +154,7 @@ public class P_ListActivitiesPage {
     public boolean isTemplateEditButtonDisplayed(){
 
         String locator = "bTemplateEdit";
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -157,7 +163,7 @@ public class P_ListActivitiesPage {
     public boolean isTemplateAddButtonDisplayed(){
 
         String locator = "bAddTemplate";
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
 
         return btn.isDisplayed();
 
@@ -166,7 +172,7 @@ public class P_ListActivitiesPage {
     public boolean isTemplateDeleteButtonDisplayed(){
 
         String locator = "bDeleteTemplate";
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
         return btn.isDisplayed();
 
     }
@@ -174,7 +180,7 @@ public class P_ListActivitiesPage {
     public boolean isTemplateGenerateButtonDisplayed(){
 
         String locator = "bTemplateGenerate";
-        WebElement btn = object(locator);
+        WebElement btn = find.findElementById(selenium, locator);
         return btn.isDisplayed();
 
     }
@@ -205,7 +211,8 @@ public class P_ListActivitiesPage {
         int i = getRandomNumberFrom(1,ListofActivities.size() - 1);
 
         WebElement row = ListofActivities.get(i);
-        WebElement  btn = row.findElement(By.cssSelector("input[id^='bEditpdetail_']"));
+        //WebElement  btn = row.findElement(By.cssSelector("input[id^='bEditpdetail_']"));
+        WebElement  btn = find.findElementsByCss_webElement(row, "input[id^='bEditpdetail_']");
         btn.click();
 
         return new P_EditActivityDetailsPage(selenium);

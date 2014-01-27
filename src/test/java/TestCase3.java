@@ -33,13 +33,23 @@ public class TestCase3 {
 
     @BeforeTest
 
-    public void setUp() throws MalformedURLException {
-        //DesiredCapabilities capabilities = DesiredCapabilities.chrome();
-        //System.setProperty("webdriver.chrome.driver", "D:\\Selenium\\driver\\chromedriver.exe");
-        selenium = new FirefoxDriver();
+    public void setUp(){
+        // Method and Description - static DesiredCapabilities internetExplorer()
+        DesiredCapabilities capabilities = DesiredCapabilities.internetExplorer();
+
+        //Method and Description - void setCapability(java.lang.String capabilityName, boolean value)
+        capabilities.setCapability(InternetExplorerDriver.INTRODUCE_FLAKINESS_BY_IGNORING_SECURITY_DOMAINS, true);
+
+        //Among the facilities provided by the System class are standard input, standard output, and error output streams; access to externally defined "properties"; a means of loading files and libraries; and a utility method for quickly copying a portion of an array.
+        System.setProperty("webdriver.ie.driver", "D:\\Selenium\\driver\\IEDriverServer.exe");
+
+        //InternetExplorerDriver(Capabilities capabilities)
+        selenium = new InternetExplorerDriver(capabilities);
+        selenium.manage().deleteAllCookies();
 
 
     }
+
 
 
 
@@ -77,18 +87,18 @@ public class TestCase3 {
                 la.selectDept(testdata[r][0].toString());
 
 
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
 
 
 
 
                 la.selectProgramme(testdata[r][1].toString());
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
                 la.selectModule(testdata[r][2].toString());
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
                 la.selectActivityTemplate(testdata[r][3].toString());
 
-            Thread.sleep(1000);
+            //Thread.sleep(1000);
 
                 Assert.assertTrue(la.isDepReportButtonDisplayed());
                 Assert.assertTrue(la.isPOSReportButtonDisplayed());
