@@ -1,3 +1,6 @@
+package PageClasses;
+
+import LibraryClasses.findElements;
 import org.openqa.selenium.WebDriver;
 
 /**
