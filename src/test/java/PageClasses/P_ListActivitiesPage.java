@@ -7,6 +7,8 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.Select;
 
+import java.io.FileNotFoundException;
+import java.io.IOException;
 import java.util.List;
 import java.util.Random;
 
@@ -48,14 +50,21 @@ public class P_ListActivitiesPage {
 
     }
 
-    public void selectDept(String dep){
+    public void selectDept(String dep) {
 
         String locator = "dlDepartment";
 
         //Select DepDrpDwn = dropdown(locator);
         Select DepDrpDwn = find.dropdown(selenium,locator);
 
+        try
+        {
         DepDrpDwn.selectByVisibleText(dep);
+        }
+        catch (RuntimeException e)
+        {
+            System.out.println("Can't find department "+dep);
+        }
 
 
     }
@@ -214,7 +223,6 @@ public class P_ListActivitiesPage {
         int i = getRandomNumberFrom(1,ListofActivities.size() - 1);
 
         WebElement row = ListofActivities.get(i);
-        //WebElement  btn = row.findElement(By.cssSelector("input[id^='bEditpdetail_']"));
         WebElement  btn = find.findElementsByCss_webElement(row, "input[id^='bEditpdetail_']");
         btn.click();
 

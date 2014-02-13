@@ -75,6 +75,12 @@ public class findElements {
         return object.findElement(By.cssSelector(locator));
     }
 
+    public List<WebElement> findElementsByCss_listWebElement(WebElement object, String locator){
+
+
+        return object.findElements(By.cssSelector(locator));
+    }
+
     public  int getRandomNumberFrom(int min, int max) {
         Random foo = new Random();
         int randomNumber = foo.nextInt((max + 1) - min) + min;
